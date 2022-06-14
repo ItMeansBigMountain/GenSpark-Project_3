@@ -48,10 +48,11 @@ public class gameFunctionality {
 
 
 
-    public static String correct_answer_check(String[] secret_display_items, String word, String user_guess)
+    public static List<Serializable>  correct_answer_check(String[] secret_display_items, String word, String user_guess)
     {
         boolean found = false;
         boolean complete = true;
+        String output = "";
 
         for (int y = 0; y < secret_display_items.length; y++) {
             for (int i = 0; i < user_guess.length(); i++) {
@@ -64,6 +65,8 @@ public class gameFunctionality {
             }
         }
 
+
+
         // CHECK IF CODE CRACKED
         for (int x = 0; x < word.length(); x++) {
             if (word.charAt(x) != '_') {
@@ -73,12 +76,15 @@ public class gameFunctionality {
 
 
         if (complete) {
-            return "complete";
+            output =  "complete";
         } else if (found) {
-            return "passed";
+            output =  "passed";
         } else {
-            return "failed";
+            output =  "failed";
         }
+
+        return Arrays.asList(output, word);
+
     }
 
 

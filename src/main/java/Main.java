@@ -42,7 +42,7 @@ public class Main {
                 System.exit(0);
             }
             word = word.toUpperCase();
-            // word = "testing".toUpperCase();
+             word = "testing".toUpperCase();
 
 
             //INIT GAME SCREEN DATA
@@ -73,18 +73,20 @@ public class Main {
 
 
             //RUNTIME GAME-LOOP VARIABLES INIT
-            int lives = 4;
+            int lives = hangman_body_items.size();
             boolean valid = false;
             ArrayList<String> used_phrases = new ArrayList<String>();
             List<Serializable> validity;
+            List<Serializable> output_data_manipulation;
+            String answer;
             String user_guess = "";
+
+
 
             // MAIN GAME LOOP
             while (lives > 0) {
-
                 //DRAW GAME SCREEN
                 gameFunctionality.draw_screen(displayItems, secret_display_items);
-
 
                 //USER INPUT & VALIDATION
                 while (!valid) {
@@ -100,7 +102,12 @@ public class Main {
 
 
                 //JUDGE ANSWER
-                String answer = gameFunctionality.correct_answer_check(secret_display_items, word, user_guess);
+                output_data_manipulation = gameFunctionality.correct_answer_check(secret_display_items, word, user_guess);
+
+                answer = (String) output_data_manipulation.get(0);
+                word = (String) output_data_manipulation.get(1);
+
+
                 if (answer.equals("complete")) {
                     //YOU WIN
                     System.out.println("CONGRATS! YOU WIN");
@@ -114,9 +121,9 @@ public class Main {
                         System.out.println("GOODBYE");
                         System.exit(0);
                     }
-
-
                 }
+
+
                 //KEEP PLAYING
                 if (answer.equals("failed")) {
                     //DEPLETE LIVES
@@ -124,6 +131,7 @@ public class Main {
                     String popped = hangman_body_items.pop();
                     displayItems.set(6 - lives - 1, popped);
                 }
+
 
 
                 // OUT OF LIVES GAME-OVER

@@ -30,7 +30,7 @@ class gameFunctionalityTest {
         ArrayList<String> used_phrases = new ArrayList<String>() {{ add("TEST");  }};
         String word = "____ING" ;
 
-        // EXPECTED
+        // EXPECTED (already input answer)
         List<Serializable> expected = new ArrayList<>(){{ add(false); add(new ArrayList<String>() {{ add("TEST"); }}); }};
 
         // ACTUAL
@@ -44,17 +44,29 @@ class gameFunctionalityTest {
     @Test
     void correct_answer_check() {
         //FUNCTION PARAMETERS
-        String word = "T____";
+        String word = "T___";
         String user_guess = "T" ;
+        List<Serializable> output_data_manipulation;
         String[] secret_display_items = new String[word.length()];
         Arrays.fill(secret_display_items, "_"); ;
 
 
+        //SCENARIO SIMULATION (winning game)
+        List<Serializable> expected = Arrays.asList("complete", "____");
+        List<Serializable> actual = gameFunctionality.correct_answer_check(secret_display_items, word, user_guess);
+        assertEquals(expected, actual);
 
-        String expected = "complete";
-        String actual = gameFunctionality.correct_answer_check( secret_display_items , word, user_guess  ) ;
+
+
+        //SCENARIO SIMULATION (winning game)
+        word = "TE_T";
+        user_guess = "T" ;
+        expected = Arrays.asList("passed", "_E__");
+        actual = gameFunctionality.correct_answer_check(secret_display_items, word, user_guess);
+
         assertEquals(expected, actual);
     }
+
 
 
 
