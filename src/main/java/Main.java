@@ -42,7 +42,7 @@ public class Main {
                 System.exit(0);
             }
             word = word.toUpperCase();
-             word = "testing".toUpperCase();
+//             word = "testing".toUpperCase();
 
 
             //INIT GAME SCREEN DATA
@@ -99,7 +99,6 @@ public class Main {
                 }
 
                 valid = false;
-
 
                 //JUDGE ANSWER
                 output_data_manipulation = gameFunctionality.correct_answer_check(secret_display_items, word, user_guess);
