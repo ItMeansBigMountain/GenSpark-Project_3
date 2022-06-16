@@ -7,8 +7,8 @@
     <list default="true" id="b9dd0a04-08cc-430b-af15-4eb1001727a7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/wordslist.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/wordslist.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gameFunctionality.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameFunctionality.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/gameFunctionalityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/gameFunctionalityTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,8 +90,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.gameFunctionalityTest.correct_answer_check" />
         <item itemvalue="JUnit.gameFunctionalityTest.checkValidInput" />
+        <item itemvalue="JUnit.gameFunctionalityTest.correct_answer_check" />
       </list>
     </recent_temporary>
   </component>

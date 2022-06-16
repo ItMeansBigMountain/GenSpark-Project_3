@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,16 +45,20 @@ class gameFunctionalityTest {
     @Test
     void correct_answer_check() {
         //FUNCTION PARAMETERS
+
         String word = "T___";
         String user_guess = "T" ;
-        List<Serializable> output_data_manipulation;
+
+        HashSet<Character> missed_letters = new HashSet<>();
+
         String[] secret_display_items = new String[word.length()];
         Arrays.fill(secret_display_items, "_"); ;
 
 
+
         //SCENARIO SIMULATION (winning game)
         List<Serializable> expected = Arrays.asList("complete", "____");
-        List<Serializable> actual = gameFunctionality.correct_answer_check(secret_display_items, word, user_guess);
+        List<Serializable> actual = gameFunctionality.correct_answer_check(secret_display_items, word, user_guess , missed_letters);
         assertEquals(expected, actual);
 
 
@@ -62,7 +67,7 @@ class gameFunctionalityTest {
         word = "TE_T";
         user_guess = "T" ;
         expected = Arrays.asList("passed", "_E__");
-        actual = gameFunctionality.correct_answer_check(secret_display_items, word, user_guess);
+        actual = gameFunctionality.correct_answer_check(secret_display_items, word, user_guess , missed_letters);
 
         assertEquals(expected, actual);
     }

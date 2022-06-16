@@ -6,8 +6,6 @@ import java.nio.file.Paths;
 import java.util.*;
 
 
-
-
 public class Main {
 
 
@@ -81,7 +79,7 @@ public class Main {
             String answer;
             String user_guess = "";
 
-
+            HashSet<Character> missed_letters = new HashSet<>();
 
             // MAIN GAME LOOP
             while (lives > 0) {
@@ -90,10 +88,11 @@ public class Main {
 
                 //USER INPUT & VALIDATION
                 while (!valid) {
-                    System.out.println("Please enter input \n");
+                    System.out.println(  "USED LETTERS: " + missed_letters.toString());
+                    System.out.println("\nPlease enter input \n");
                     System.out.print(">  ");
                     user_guess = scanner.nextLine().toUpperCase();
-                    validity = gameFunctionality.checkValidInput(user_guess, used_phrases , word);
+                    validity = gameFunctionality.checkValidInput(user_guess, used_phrases, word);
                     valid = (boolean) validity.get(0);
                     used_phrases = (ArrayList<String>) validity.get(1);
                 }
@@ -101,10 +100,11 @@ public class Main {
                 valid = false;
 
                 //JUDGE ANSWER
-                output_data_manipulation = gameFunctionality.correct_answer_check(secret_display_items, word, user_guess);
+                output_data_manipulation = gameFunctionality.correct_answer_check(secret_display_items, word, user_guess, missed_letters);
 
                 answer = (String) output_data_manipulation.get(0);
                 word = (String) output_data_manipulation.get(1);
+                missed_letters = (HashSet<Character>) output_data_manipulation.get(2);
 
 
                 if (answer.equals("complete")) {
@@ -130,7 +130,6 @@ public class Main {
                     String popped = hangman_body_items.pop();
                     displayItems.set(6 - lives - 1, popped);
                 }
-
 
 
                 // OUT OF LIVES GAME-OVER

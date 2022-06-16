@@ -39,6 +39,9 @@ public class gameFunctionality {
             System.out.println("Guess is too long!");
             valid = false;
         }
+
+
+
         return Arrays.asList(valid, used_phrases);
     }
 
@@ -48,11 +51,12 @@ public class gameFunctionality {
 
 
 
-    public static List<Serializable>  correct_answer_check(String[] secret_display_items, String word, String user_guess)
+    public static List<Serializable>  correct_answer_check(String[] secret_display_items, String word, String user_guess , HashSet missed_letters)
     {
         boolean found = false;
         boolean complete = true;
         String output = "";
+
 
         for (int y = 0; y < secret_display_items.length; y++) {
             for (int i = 0; i < user_guess.length(); i++) {
@@ -61,6 +65,7 @@ public class gameFunctionality {
                     word = word.substring(0, word.indexOf(user_guess.charAt(i))) + '_' + word.substring(word.indexOf(user_guess.charAt(i)) + 1);
                     found = true;
                 } catch (Exception e) {
+                    missed_letters.add(user_guess.charAt(i));
                 }
             }
         }
@@ -83,7 +88,7 @@ public class gameFunctionality {
             output =  "failed";
         }
 
-        return Arrays.asList(output, word);
+        return Arrays.asList(output, word , missed_letters);
 
     }
 
