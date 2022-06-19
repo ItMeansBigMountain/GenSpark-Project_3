@@ -96,7 +96,7 @@ public class Main {
 
                 //USER INPUT & VALIDATION
                 while (!valid) {
-                    System.out.println("USED LETTERS: " + missed_letters.toString());
+                    System.out.println("MISSED LETTERS: " + missed_letters.toString());
                     System.out.println("\nPlease enter input \n");
                     System.out.print(">  ");
                     user_guess = scanner.nextLine().toUpperCase();
