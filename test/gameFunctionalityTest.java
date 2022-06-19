@@ -47,6 +47,7 @@ class gameFunctionalityTest {
         //FUNCTION PARAMETERS
 
         String word = "T___";
+        String original_word = "TEST";
         String user_guess = "T" ;
 
         HashSet<Character> missed_letters = new HashSet<>();
@@ -57,17 +58,20 @@ class gameFunctionalityTest {
 
 
         //SCENARIO SIMULATION (winning game)
-        List<Serializable> expected = Arrays.asList("complete", "____");
-        List<Serializable> actual = gameFunctionality.correct_answer_check(secret_display_items, word, user_guess , missed_letters);
+        List<Serializable> expected = Arrays.asList("complete",  "____" ,  missed_letters  );
+        List<Serializable> actual = gameFunctionality.correct_answer_check( original_word , secret_display_items, word, user_guess , missed_letters);
         assertEquals(expected, actual);
 
 
 
-        //SCENARIO SIMULATION (winning game)
+        //SCENARIO SIMULATION (carry on.. game)
         word = "TE_T";
+        original_word = "TEST";
         user_guess = "T" ;
-        expected = Arrays.asList("passed", "_E__");
-        actual = gameFunctionality.correct_answer_check(secret_display_items, word, user_guess , missed_letters);
+        missed_letters = new HashSet<>();
+
+        expected = Arrays.asList("passed" ,  "_E__"  ,  missed_letters);
+        actual = gameFunctionality.correct_answer_check(original_word , secret_display_items, word, user_guess , missed_letters);
 
         assertEquals(expected, actual);
     }

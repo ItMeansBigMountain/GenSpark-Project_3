@@ -11,12 +11,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         while (true) {
 
             //USER INPUT DATA INIT
             Scanner scanner = new Scanner(System.in);
             String word = "";
+            String original_word = "";
 
             //JSON DATA INIT
             ArrayList<String> words = new ArrayList<>();
@@ -39,8 +39,15 @@ public class Main {
                 System.out.println("Cannot find file 'wordslist.json'");
                 System.exit(0);
             }
+
+
+            //FINAL WORD INIT
             word = word.toUpperCase();
-//             word = "testing".toUpperCase();
+            original_word = word.toUpperCase();
+
+
+            original_word = "testing".toUpperCase();
+            word = "testing".toUpperCase();
 
 
             //INIT GAME SCREEN DATA
@@ -57,7 +64,8 @@ public class Main {
                 add("==================================||"); // 8
             }};
 
-            //secret word display init
+
+            //secret word display init STRING[ ]
             String[] secret_display_items = new String[word.length()];
             Arrays.fill(secret_display_items, "_");
 
@@ -88,7 +96,7 @@ public class Main {
 
                 //USER INPUT & VALIDATION
                 while (!valid) {
-                    System.out.println(  "USED LETTERS: " + missed_letters.toString());
+                    System.out.println("USED LETTERS: " + missed_letters.toString());
                     System.out.println("\nPlease enter input \n");
                     System.out.print(">  ");
                     user_guess = scanner.nextLine().toUpperCase();
@@ -100,7 +108,7 @@ public class Main {
                 valid = false;
 
                 //JUDGE ANSWER
-                output_data_manipulation = gameFunctionality.correct_answer_check(secret_display_items, word, user_guess, missed_letters);
+                output_data_manipulation = gameFunctionality.correct_answer_check(  original_word , secret_display_items, word, user_guess, missed_letters);
 
                 answer = (String) output_data_manipulation.get(0);
                 word = (String) output_data_manipulation.get(1);

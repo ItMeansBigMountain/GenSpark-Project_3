@@ -24,8 +24,7 @@ public class gameFunctionality {
     }
 
 
-    public static List<Serializable> checkValidInput(String user_input, ArrayList<String> used_phrases, String word)
-    {
+    public static List<Serializable> checkValidInput(String user_input, ArrayList<String> used_phrases, String word) {
         boolean valid = false;
         if (used_phrases.contains(user_input)) {
             System.out.println("You already used that phrase!!");
@@ -41,24 +40,18 @@ public class gameFunctionality {
         }
 
 
-
         return Arrays.asList(valid, used_phrases);
     }
 
 
-
-
-
-
-
-    public static List<Serializable>  correct_answer_check(String[] secret_display_items, String word, String user_guess , HashSet missed_letters)
-    {
+    public static List<Serializable> correct_answer_check(String original_word, String[] secret_display_items, String word, String user_guess, HashSet missed_letters) {
         boolean found = false;
         boolean complete = true;
         String output = "";
 
 
         for (int y = 0; y < secret_display_items.length; y++) {
+
             for (int i = 0; i < user_guess.length(); i++) {
                 try {
                     secret_display_items[word.indexOf(user_guess.charAt(i))] = String.valueOf(user_guess.charAt(i));
@@ -66,10 +59,15 @@ public class gameFunctionality {
                     found = true;
                 } catch (Exception e) {
                     missed_letters.add(user_guess.charAt(i));
+
+                }
+
+                if (original_word.contains(String.valueOf(user_guess.charAt(i)))) {
+                    missed_letters.remove(user_guess.charAt(i));
                 }
             }
-        }
 
+        }
 
 
         // CHECK IF CODE CRACKED
@@ -81,14 +79,14 @@ public class gameFunctionality {
 
 
         if (complete) {
-            output =  "complete";
+            output = "complete";
         } else if (found) {
-            output =  "passed";
+            output = "passed";
         } else {
-            output =  "failed";
+            output = "failed";
         }
 
-        return Arrays.asList(output, word , missed_letters);
+        return Arrays.asList(output, word, missed_letters);
 
     }
 
