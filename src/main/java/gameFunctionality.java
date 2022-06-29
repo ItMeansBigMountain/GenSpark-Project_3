@@ -9,11 +9,18 @@ import java.util.*;
 public class gameFunctionality {
 
     public static void draw_screen(List displayItems, String[] secret_display_items) {
-        //DRAW GAME SCREEN
-        // draw hangman
-        for (int x = 0; x < displayItems.size(); x++) {
-            System.out.println(displayItems.get(x));
-        }
+        // DRAW HANGMAN
+        // for (int x = 0; x < displayItems.size(); x++) {
+        //     System.out.println(displayItems.get(x));
+        // }
+
+        displayItems.stream().map(
+                i -> {
+                    System.out.println(i);
+                    return i;
+                }
+        );
+
         System.out.print("\n");
 
         //draw secret word
