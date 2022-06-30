@@ -1,7 +1,9 @@
 import com.google.gson.Gson;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -9,7 +11,7 @@ import java.util.*;
 public class Main {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
 
         //USER INPUT DATA INIT
@@ -40,28 +42,18 @@ public class Main {
         }
 
 
+
+        //DISPLAY FILE PATH
+        Path path = Paths.get("src/hangman.txt");
+
+
         //FINAL WORD INIT
         word = word.toUpperCase();
         original_word = word.toUpperCase();
 
-
-        original_word = "testing".toUpperCase();
         word = "testing".toUpperCase();
+        original_word = "testing".toUpperCase();
 
-
-        //INIT GAME SCREEN DATA
-        //hangman display init
-        List<String> displayItems = new ArrayList<String>() {{
-            add("---------");                            // 0
-            add("||      |");                            // 1
-            add("||       ");                            // 2 * HUMAN LIMBS
-            add("||       ");                            // 3 * HUMAN LIMBS
-            add("||       ");                            // 4 * HUMAN LIMBS
-            add("||       ");                            // 5 * HUMAN LIMBS
-            add("||       ");                            // 6
-            add("||       ");                            // 7
-            add("==================================||"); // 8
-        }};
 
 
         //secret word display init STRING[ ]
@@ -91,7 +83,7 @@ public class Main {
         // MAIN GAME LOOP
         while (lives > 0) {
             //DRAW GAME SCREEN
-            gameFunctionality.draw_screen(displayItems, secret_display_items);
+            gameFunctionality.draw_screen(secret_display_items);
 
             //USER INPUT & VALIDATION
             System.out.println("MISSED LETTERS: " + missed_letters.toString());
@@ -104,10 +96,14 @@ public class Main {
 
 
             if (!valid) {
-                System.out.println("INVALID INPUT : YOU WILL BE PUNISHED FOR YOUR ACTIONS...");
+                System.out.println("INVALID INPUT...");
                 lives--;
                 String popped = hangman_body_items.pop();
-                displayItems.set(6 - lives - 1, popped);
+
+                //SET HANGMAN FILE WITH LINE REPLACED
+                List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+                lines.set( 6 - lives - 1, popped);
+                Files.write(path, lines, StandardCharsets.UTF_8);
                 continue;
             }
 
@@ -140,14 +136,18 @@ public class Main {
                 //DEPLETE LIVES
                 lives--;
                 String popped = hangman_body_items.pop();
-                displayItems.set(6 - lives - 1, popped);
+
+                //SET HANGMAN FILE WITH LINE REPLACED
+                List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+                lines.set( 6 - lives - 1, popped);
+                Files.write(path, lines, StandardCharsets.UTF_8);
             }
 
 
             // OUT OF LIVES GAME-OVER
             if (lives == 0) {
                 System.out.print("\nGAME OVER\n");
-                gameFunctionality.draw_screen(displayItems, secret_display_items);
+                gameFunctionality.draw_screen(secret_display_items);
                 System.out.println("Correct Answer: " + word);
 
                 System.out.println("Would you like to play again (y or n)");

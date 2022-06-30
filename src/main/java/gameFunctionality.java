@@ -1,33 +1,32 @@
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.io.Reader;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class gameFunctionality {
 
-    public static void draw_screen(List displayItems, String[] secret_display_items) {
-        // DRAW HANGMAN
-        // for (int x = 0; x < displayItems.size(); x++) {
-        //     System.out.println(displayItems.get(x));
-        // }
-
-        displayItems.stream().map(
-                i -> {
-                    System.out.println(i);
-                    return i;
-                }
-        );
-
+    public static void draw_screen(String[] secret_display_items) {
+        //  DRAW HANGMAN
+        try {
+            File hangman = new File(Files.readString(Paths.get("src/hangman.txt"), StandardCharsets.UTF_8));
+            System.out.println(hangman);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         System.out.print("\n");
 
         //draw secret word
-        for (int x = 0; x < secret_display_items.length; x++) {
-            System.out.print(secret_display_items[x]);
-        }
-        System.out.print("\n\n");
+        System.out.println(Arrays.toString(secret_display_items)
+                .replace(",", "")  //remove the commas
+                .replace("[", "")  //remove the right bracket
+                .replace("]", "")  //remove the left bracket
+        );
     }
 
 
@@ -62,29 +61,46 @@ public class gameFunctionality {
             for (int i = 0; i < user_guess.length(); i++) {
                 try {
                     secret_display_items[word.indexOf(user_guess.charAt(i))] = String.valueOf(user_guess.charAt(i));
-                    word = word.substring(0, word.indexOf(user_guess.charAt(i))) + '_' + word.substring(word.indexOf(user_guess.charAt(i)) + 1);
+                    word = word.substring(0, word.indexOf(user_guess.charAt(i))) + "_" + word.substring(word.indexOf(user_guess.charAt(i)) + 1);
                     found = true;
                 } catch (Exception e) {
                     missed_letters.add(user_guess.charAt(i));
-
                 }
-
                 if (original_word.contains(String.valueOf(user_guess.charAt(i)))) {
                     missed_letters.remove(user_guess.charAt(i));
                 }
             }
-
         }
 
 
-        // CHECK IF CODE CRACKED
-        for (int x = 0; x < word.length(); x++) {
-            if (word.charAt(x) != '_') {
-                complete = false;
-            }
+        //CHECK IF WORD CONTAINS USER GUESS//
+//        Object[] check = Arrays.stream(user_guess.split("")).filter(
+//                (i) -> {
+//                    if (original_word.contains(i)) {
+//                        return true;
+//                    } else {
+//                        missed_letters.add(i);
+//                        return false;
+//                    }
+//                }
+//        ).toArray();
+//
+//
+//        //BOOLEAN TO HANG THE MAN
+//        if (check.length > 0) {
+//            found = true;
+//        } else {
+//            found = false;
+//        }
+//
+
+        //CHECK IF GAME COMPLETE
+        if (Arrays.stream(word.split("")).filter(i -> i.equals("_")).toArray().length != original_word.length()) {
+            complete = false;
         }
 
 
+        //RETURN STATUS STATE
         if (complete) {
             output = "complete";
         } else if (found) {
