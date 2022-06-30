@@ -1,15 +1,85 @@
 import com.google.gson.Gson;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.Reader;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class gameFunctionality {
+
+
+    public static Object[] init() throws IOException {
+
+
+        //USER INPUT DATA INIT
+        Scanner scanner = new Scanner(System.in);
+        String word = "";
+        String original_word = "";
+
+        //JSON DATA INIT
+        ArrayList<String> words = new ArrayList<>();
+        Random random = new Random();
+        int randomNumber;
+
+        //LOAD WORDLIST
+        try {
+            //FETCH JSON
+            Gson gson = new Gson();
+            Reader reader = Files.newBufferedReader(Paths.get("src/wordslist.json"));
+            Map<String, ArrayList<String>> map = gson.fromJson(reader, Map.class);
+
+            //RANDOM WORD FROM LIST
+            randomNumber = random.ints(0, map.get("data").size()).findFirst().getAsInt();
+            word = map.get("data").get(randomNumber);
+            reader.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("Cannot find file 'wordslist.json'");
+            System.exit(0);
+        }
+
+
+        //FINAL WORD INIT
+        word = word.toUpperCase();
+        original_word = word.toUpperCase();
+
+        word = "testing".toUpperCase();
+        original_word = "testing".toUpperCase();
+
+
+        //secret word display init STRING[ ]
+        String[] secret_display_items = new String[word.length()];
+        Arrays.fill(secret_display_items, "_");
+
+
+        // ADDING TO HANGMAN DATA
+        Stack<String> hangman_body_items = new Stack<String>();
+        hangman_body_items.push("||     / \\                           ");
+        hangman_body_items.push("||      |                             ");
+        hangman_body_items.push("||    --|--                           ");
+        hangman_body_items.push("||     ( )                            ");
+
+
+        //DISPLAY FILE PATH
+        Path p = Paths.get("src/hangman.txt");
+        Path original_path = Paths.get("src/original_hangman.txt");
+
+        List<String> lines = Files.readAllLines(original_path, StandardCharsets.UTF_8);
+        Files.write(p, lines, StandardCharsets.UTF_8);
+
+
+
+
+
+        return new Object[]{scanner, word, original_word, secret_display_items, hangman_body_items, p};
+    }
+
 
     public static void draw_screen(String[] secret_display_items) {
         //  DRAW HANGMAN

@@ -14,59 +14,17 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
 
-        //USER INPUT DATA INIT
-        Scanner scanner = new Scanner(System.in);
-        String word = "";
-        String original_word = "";
+        //__INIT__
+        Object[] init = gameFunctionality.init();
+        Scanner scanner = (Scanner) init[0];
+        String word = (String) init[1];
+        String original_word = (String) init[2];
+        String[] secret_display_items = (String[]) init[3];
+        Stack<String> hangman_body_items = (Stack<String>) init[4];
+        Path path = (Path) init[5];
 
-        //JSON DATA INIT
-        ArrayList<String> words = new ArrayList<>();
-        Random random = new Random();
-        int randomNumber;
-
-        //LOAD WORDLIST
-        try {
-            //FETCH JSON
-            Gson gson = new Gson();
-            Reader reader = Files.newBufferedReader(Paths.get("src/wordslist.json"));
-            Map<String, ArrayList<String>> map = gson.fromJson(reader, Map.class);
-
-            //RANDOM WORD FROM LIST
-            randomNumber = random.ints(0, map.get("data").size()).findFirst().getAsInt();
-            word = map.get("data").get(randomNumber);
-            reader.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            System.out.println("Cannot find file 'wordslist.json'");
-            System.exit(0);
-        }
-
-
-
-        //DISPLAY FILE PATH
-        Path path = Paths.get("src/hangman.txt");
-
-
-        //FINAL WORD INIT
-        word = word.toUpperCase();
-        original_word = word.toUpperCase();
-
-        word = "testing".toUpperCase();
-        original_word = "testing".toUpperCase();
-
-
-
-        //secret word display init STRING[ ]
-        String[] secret_display_items = new String[word.length()];
-        Arrays.fill(secret_display_items, "_");
-
-
-        // ADDING TO HANGMAN DATA
-        Stack<String> hangman_body_items = new Stack<String>();
-        hangman_body_items.push("||     / \\                           ");
-        hangman_body_items.push("||      |                             ");
-        hangman_body_items.push("||    --|--                           ");
-        hangman_body_items.push("||     ( )                            ");
+        //MISSED LETTERS
+        HashSet<Character> missed_letters = new HashSet<>();
 
 
         //RUNTIME GAME-LOOP VARIABLES INIT
@@ -78,7 +36,6 @@ public class Main {
         String answer;
         String user_guess = "";
 
-        HashSet<Character> missed_letters = new HashSet<>();
 
         // MAIN GAME LOOP
         while (lives > 0) {
@@ -102,7 +59,7 @@ public class Main {
 
                 //SET HANGMAN FILE WITH LINE REPLACED
                 List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
-                lines.set( 6 - lives - 1, popped);
+                lines.set(6 - lives - 1, popped);
                 Files.write(path, lines, StandardCharsets.UTF_8);
                 continue;
             }
@@ -123,7 +80,17 @@ public class Main {
                 System.out.print(">  ");
                 user_guess = scanner.nextLine().toUpperCase();
                 if (user_guess.toLowerCase().startsWith("y")) {
-                    break;
+                    init = gameFunctionality.init();
+                    scanner = (Scanner) init[0];
+                    word = (String) init[1];
+                    original_word = (String) init[2];
+                    secret_display_items = (String[]) init[3];
+                    hangman_body_items = (Stack<String>) init[4];
+                    path = (Path) init[5];
+                    missed_letters = new HashSet<>();
+                    used_phrases = new ArrayList<String>();
+                    lives = hangman_body_items.size();
+
                 } else {
                     System.out.println("GOODBYE");
                     System.exit(0);
@@ -139,7 +106,7 @@ public class Main {
 
                 //SET HANGMAN FILE WITH LINE REPLACED
                 List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
-                lines.set( 6 - lives - 1, popped);
+                lines.set(6 - lives - 1, popped);
                 Files.write(path, lines, StandardCharsets.UTF_8);
             }
 
@@ -155,7 +122,16 @@ public class Main {
                 System.out.print(">  ");
                 user_guess = scanner.nextLine().toUpperCase();
                 if (user_guess.toLowerCase().startsWith("y")) {
-                    break;
+                    init = gameFunctionality.init();
+                    scanner = (Scanner) init[0];
+                    word = (String) init[1];
+                    original_word = (String) init[2];
+                    secret_display_items = (String[]) init[3];
+                    hangman_body_items = (Stack<String>) init[4];
+                    path = (Path) init[5];
+                    missed_letters = new HashSet<>();
+                    used_phrases = new ArrayList<String>();
+                    lives = hangman_body_items.size();
                 } else {
                     System.out.println("GOODBYE");
                     System.exit(0);
