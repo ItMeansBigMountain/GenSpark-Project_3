@@ -13,7 +13,6 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-
         //__INIT__
         Object[] init = gameFunctionality.init();
         Scanner scanner = (Scanner) init[0];
@@ -70,6 +69,7 @@ public class Main {
             answer = (String) output_data_manipulation.get(0);
             word = (String) output_data_manipulation.get(1);
             missed_letters = (HashSet<Character>) output_data_manipulation.get(2);
+            secret_display_items = (String[]) output_data_manipulation.get(3);
 
 
             if (answer.equals("complete")) {
