@@ -21,12 +21,27 @@ public class Main {
         String[] secret_display_items = (String[]) init[3];
         Stack<String> hangman_body_items = (Stack<String>) init[4];
         Path path = (Path) init[5];
+        Path hs_path = (Path) init[6];
+        List<String> hs_lines = (List<String>) init[7];
+        int high_score_int = (int) init[8];
+
 
         //MISSED LETTERS
         HashSet<Character> missed_letters = new HashSet<>();
 
 
+        //HIGH SCORES INIT
+        System.out.print("Please Enter Your Name: ");
+        String name = scanner.nextLine();
+
+
+
+
+
+
+
         //RUNTIME GAME-LOOP VARIABLES INIT
+        int score = 0;
         int lives = hangman_body_items.size();
         boolean valid = false;
         ArrayList<String> used_phrases = new ArrayList<String>();
@@ -38,6 +53,8 @@ public class Main {
 
         // MAIN GAME LOOP
         while (lives > 0) {
+            score++;
+
             //DRAW GAME SCREEN
             gameFunctionality.draw_screen(secret_display_items);
 
@@ -74,6 +91,9 @@ public class Main {
 
             if (answer.equals("complete")) {
                 //YOU WIN
+                hs_lines.add(   String.format("%s:%s",name , score)     );
+                Files.write(hs_path, hs_lines, StandardCharsets.UTF_8);
+                System.out.println(  high_score_int < score? "HIGH SCORE: " + high_score_int : "YOU BEAT THE HIGH SCORE!:  " + score  );
                 System.out.println("CONGRATS! YOU WIN");
                 System.out.println("Would you like to play again (y or n)");
                 System.out.println("Please enter input \n");
@@ -90,6 +110,7 @@ public class Main {
                     missed_letters = new HashSet<>();
                     used_phrases = new ArrayList<String>();
                     lives = hangman_body_items.size();
+                    score = 0;
 
                 } else {
                     System.out.println("GOODBYE");
@@ -132,6 +153,7 @@ public class Main {
                     missed_letters = new HashSet<>();
                     used_phrases = new ArrayList<String>();
                     lives = hangman_body_items.size();
+                    score = 0;
                 } else {
                     System.out.println("GOODBYE");
                     System.exit(0);

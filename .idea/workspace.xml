@@ -5,11 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b9dd0a04-08cc-430b-af15-4eb1001727a7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/highScores.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gameFunctionality.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameFunctionality.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gameFunctionality.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gameFunctionality.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gameFunctionality.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/gameFunctionalityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/gameFunctionalityTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +62,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.gameFunctionalityTest.correct_answer_check">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="hangman" />
@@ -90,9 +92,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.gameFunctionalityTest.correct_answer_check" />
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.gameFunctionalityTest.checkValidInput" />
-        <item itemvalue="JUnit.gameFunctionalityTest.correct_answer_check" />
       </list>
     </recent_temporary>
   </component>

@@ -22,6 +22,18 @@ public class gameFunctionality {
         String word = "";
         String original_word = "";
 
+
+
+        //HIGH SCORE INIT
+        Path hs_path = Paths.get("src/highScores.txt");
+        List<String> hs_lines = Files.readAllLines(hs_path, StandardCharsets.UTF_8);
+        List<Integer> all_scores = hs_lines.stream().map( i -> Integer.parseInt( i.strip().split(":")[1] ) ).collect(Collectors.toList());
+        Collections.sort(all_scores);
+        int highest_score = all_scores.get(0); ;
+
+
+
+
         //JSON DATA INIT
         ArrayList<String> words = new ArrayList<>();
         Random random = new Random();
@@ -73,11 +85,7 @@ public class gameFunctionality {
         List<String> lines = Files.readAllLines(original_path, StandardCharsets.UTF_8);
         Files.write(p, lines, StandardCharsets.UTF_8);
 
-
-
-
-
-        return new Object[]{scanner, word, original_word, secret_display_items, hangman_body_items, p};
+        return new Object[]{scanner, word, original_word, secret_display_items, hangman_body_items, p , hs_path , hs_lines , highest_score};
     }
 
 

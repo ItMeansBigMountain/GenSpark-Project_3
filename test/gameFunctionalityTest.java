@@ -58,8 +58,13 @@ class gameFunctionalityTest {
 
 
         //SCENARIO SIMULATION (winning game)
-        List<Serializable> expected = Arrays.asList("complete",  "____" ,  missed_letters  );
+        List<Serializable> expected = Arrays.asList("complete",  "____" ,  missed_letters , new String[]{"T","_","_","_"} );
         List<Serializable> actual = gameFunctionality.correct_answer_check( original_word , secret_display_items, word, user_guess , missed_letters);
+
+        expected.set(3 , Arrays.toString((String[]) expected.get(3)));
+        actual.set(3 , Arrays.toString((String[]) actual.get(3)));
+
+
         assertEquals(expected, actual);
 
 
@@ -70,8 +75,12 @@ class gameFunctionalityTest {
         user_guess = "T" ;
         missed_letters = new HashSet<>();
 
-        expected = Arrays.asList("passed" ,  "_E__"  ,  missed_letters);
+        expected = Arrays.asList("passed" ,  "_E__"  ,  missed_letters, new String[]{"T","_","_","T"} );
         actual = gameFunctionality.correct_answer_check(original_word , secret_display_items, word, user_guess , missed_letters);
+
+        expected.set(3 , Arrays.toString((String[]) expected.get(3)));
+        actual.set(3 , Arrays.toString((String[]) actual.get(3)));
+
 
         assertEquals(expected, actual);
     }
